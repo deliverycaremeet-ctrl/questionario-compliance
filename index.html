@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Check gratuito compliance sicurezza lavoro D.Lgs 81/08 - Verifica in 10 minuti">
+    <title>Check Compliance Sicurezza Lavoro | Delivery Care</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.95;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+
+        .cta-section h2 {
+            color: white;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            color: white;
+            opacity: 0.95;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 40px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .info-box h3 {
+            color: #1565c0;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box li {
+            padding: 8px 0;
+            color: #1565c0;
+            font-size: 15px;
+        }
+
+        .info-box li:before {
+            content: "✓ ";
+            color: #2196f3;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .stat {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .footer strong {
+            color: #2c3e50;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>🛡️ Check Compliance Sicurezza Lavoro</h1>
+            <p>Verifica gratuitamente la conformità aziendale al D.Lgs 81/08 in 10 minuti. Report immediato con criticità e sanzioni.</p>
+        </div>
+
+        <div class="content">
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Veloce</h3>
+                    <p>10 minuti per completare il questionario e ricevere il report</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Preciso</h3>
+                    <p>Domande specifiche per 18 settori diversi di attività</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>Completo</h3>
+                    <p>Report dettagliato con punteggio, criticità e sanzioni stimate</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>✅ Cosa Verifica il Check:</h3>
+                <ul>
+                    <li>Medico Competente e Sorveglianza Sanitaria</li>
+                    <li>Formazione Sicurezza (generale e specifica)</li>
+                    <li>DVR (Documento Valutazione Rischi)</li>
+                    <li>Nomine Obbligatorie (RSPP, RLS, Addetti)</li>
+                    <li>DPI e Piano di Emergenza</li>
+                    <li>Adempimenti Specifici del Settore (HACCP, POS, ecc.)</li>
+                </ul>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">18</div>
+                    <div class="stat-label">Settori Coperti</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Aree Valutate</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Minuti</div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <h2>Inizia la Verifica Ora</h2>
+                <p>Gratuito • Nessuna registrazione • Report immediato</p>
+                <a href="questionario.html" class="btn">🚀 Avvia Check Compliance</a>
+            </div>
+
+            <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 12px; padding: 25px; margin-bottom: 30px;">
+                <h3 style="color: #856404; margin-bottom: 15px; font-size: 20px;">⚠️ Perché È Importante</h3>
+                <p style="color: #856404; line-height: 1.8; margin-bottom: 15px;">
+                    Con l'intensificazione dei controlli ispettivi sulla sicurezza sul lavoro, le aziende non conformi rischiano:
+                </p>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li style="color: #856404; padding: 5px 0;">💰 Sanzioni da €1.000 fino a €18.000</li>
+                    <li style="color: #856404; padding: 5px 0;">⚖️ Responsabilità penale con arresto fino a 6 mesi</li>
+                    <li style="color: #856404; padding: 5px 0;">🚫 Sospensione attività aziendale</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>
+                <strong>Questionario fornito da:</strong> Delivery Care SRL in collaborazione con il Tuo Commercialista<br>
+                18.000+ lavoratori gestiti | 40 province coperte<br>
+                📍 Segrate (MI) | 📞 [numero] | 📧 [email]
+            </p>
+            <p style="margin-top: 15px; font-size: 12px;">
+                © 2025 Delivery Care SRL - Strumento informativo. Per valutazioni certificate consultare un tecnico specializzato.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Compliance Sicurezza | Delivery Care</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .progress-container {
+            background: rgba(255,255,255,0.2);
+            height: 8px;
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: white;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-title {
+            font-size: 24px;
+            color: #1e3c72;
+            margin-bottom: 30px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+        }
+
+        .question-box:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .question-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #eef2ff;
+            font-weight: 600;
+        }
+
+        .option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .btn-secondary:hover {
+            background: #dee2e6;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* REPORT STYLES */
+        .report {
+            display: none;
+        }
+
+        .report.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .score-hero {
+            text-align: center;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+
+        .company-name {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .score-display {
+            font-size: 80px;
+            font-weight: 800;
+            line-height: 1;
+            margin: 20px 0;
+        }
+
+        .score-suffix {
+            font-size: 24px;
+            opacity: 0.8;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .areas-grid {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .area-card {
+            display: flex;
+            align-items: center;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            border-left: 6px solid;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .area-card.red { border-color: #dc3545; background: #fff5f5; }
+        .area-card.yellow { border-color: #ffc107; background: #fffef5; }
+        .area-card.green { border-color: #28a745; background: #f5fff8; }
+
+        .area-icon {
+            font-size: 40px;
+            margin-right: 20px;
+        }
+
+        .area-content h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        .area-content p {
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .alert-box {
+            background: #fff5f5;
+            border: 3px solid #dc3545;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .alert-box h3 {
+            color: #dc3545;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .problem-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #dc3545;
+        }
+
+        .problem-title {
+            font-weight: 700;
+            color: #dc3545;
+            margin-bottom: 8px;
+        }
+
+        .problem-desc {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .fine-amount {
+            background: #fff3cd;
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #856404;
+            font-size: 14px;
+        }
+
+        .contact-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .contact-box h3 {
+            margin-bottom: 15px;
+        }
+
+        .contact-box p {
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .contact-box .btn {
+            background: white;
+            color: #667eea;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .footer-note {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .score-display {
+                font-size: 60px;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛡️ Check Compliance Sicurezza Lavoro</h1>
+            <p>Verifica la tua conformità al D.Lgs 81/08 in 10 minuti • Report immediato</p>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Step 1: Company Data -->
+            <div class="step active" data-step="1">
+                <div class="step-title">📊 Dati Azienda</div>
+                
+                <div class="question-box">
+                    <div class="question-label">Ragione Sociale</div>
+                    <input type="text" id="companyName" placeholder="Es: Acme SRL">
+                </div>
+
+                <div class="question-box">
+                    <div class="question-label">Numero Dipendenti</div>
+                    <input type="number" id="numEmployees" placeholder="Es: 15" min="1">
+                </div>
+
+                <div class="question-box">
+                    <div class="question-label">Settore di Attività</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="sector" value="office">
+                            <span>🏢 Uffici e Studi Professionali</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="retail">
+                            <span>🛒 Commercio al Dettaglio</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="gdo">
+                            <span>🏪 Grande Distribuzione (GDO)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="manufacturing">
+                            <span>🏭 Manifattura e Industria</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="food">
+                            <span>🍔 Industria Alimentare</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="construction">
+                            <span>🏗️ Edilizia e Costruzioni</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="logistics">
+                            <span>🚚 Logistica e Trasporti</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="automotive">
+                            <span>🚗 Automotive (Officine, Concessionarie)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="horeca">
+                            <span>🍽️ Ristorazione e Alberghiero (HoReCa)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="healthcare">
+                            <span>🏥 Sanità e Assistenza Socio-Sanitaria</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="personal">
+                            <span>💇 Servizi alla Persona (Parrucchieri, Estetisti)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="education">
+                            <span>🎓 Istruzione e Formazione</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="facility">
+                            <span>🔧 Pulizie e Facility Management</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="it">
+                            <span>💻 IT e Tecnologia</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="energy">
+                            <span>⚡ Energia e Utilities</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="agriculture">
+                            <span>🌾 Agricoltura e Zootecnia</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="public">
+                            <span>🏛️ Pubblica Amministrazione</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="sector" value="other">
+                            <span>🎨 Altri Servizi</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-primary" onclick="nextStep()">Inizia il Check →</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Medico Competente -->
+            <div class="step" data-step="2">
+                <div class="step-title">👨‍⚕️ Medico Competente</div>
+                
+                <div class="question-box">
+                    <div class="question-label">È stato nominato un Medico Competente?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="medicoNominato" value="yes">
+                            <span>✅ SÌ, è nominato</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="medicoNominato" value="no">
+                            <span>❌ NO, non è nominato</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="medicoNominato" value="unknown">
+                            <span>❓ NON SO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-label">I lavoratori hanno fatto le visite mediche periodiche?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="visite" value="all">
+                            <span>✅ SÌ, tutti aggiornati (ultimi 12 mesi)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="visite" value="some">
+                            <span>⚠️ Solo alcuni</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="visite" value="none">
+                            <span>❌ Nessuno</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="visite" value="unknown">
+                            <span>❓ NON SO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="prevStep()">← Indietro</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Avanti →</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Formazione -->
+            <div class="step" data-step="3">
+                <div class="step-title">📚 Formazione Sicurezza</div>
+                
+                <div class="question-box">
+                    <div class="question-label">Tutti hanno ricevuto la formazione generale (4 ore)?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="formazioneGenerale" value="all">
+                            <span>✅ SÌ, tutti</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="formazioneGenerale" value="some">
+                            <span>⚠️ Solo alcuni</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="formazioneGenerale" value="none">
+                            <span>❌ Nessuno</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="formazioneGenerale" value="unknown">
+                            <span>❓ NON SO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-label">Tutti hanno la formazione specifica per il loro ruolo?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="formazioneSpecifica" value="all">
+                            <span>✅ SÌ, tutti</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="formazioneSpecifica" value="some">
+                            <span>⚠️ Solo alcuni</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="formazioneSpecifica" value="none">
+                            <span>❌ Nessuno</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="formazioneSpecifica" value="unknown">
+                            <span>❓ NON SO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-label">La formazione è stata aggiornata negli ultimi 5 anni?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="formazioneAggiornata" value="yes">
+                            <span>✅ SÌ</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="formazioneAggiornata" value="no">
+                            <span>❌ NO</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="formazioneAggiornata" value="unknown">
+                            <span>❓ NON SO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="prevStep()">← Indietro</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Avanti →</button>
+                </div>
+            </div>
+
+            <!-- Step 4: DVR e Nomine -->
+            <div class="step" data-step="4">
+                <div class="step-title">📄 DVR e Nomine</div>
+                
+                <div class="question-box">
+                    <div class="question-label">L'azienda ha il DVR (Documento Valutazione Rischi)?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="dvr" value="updated">
+                            <span>✅ SÌ, aggiornato</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="dvr" value="old">
+                            <span>⚠️ SÌ, ma vecchio (>3 anni)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="dvr" value="no">
+                            <span>❌ NO</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="dvr" value="unknown">
+                            <span>❓ NON SO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-label">È stato nominato il RSPP (Responsabile Servizio Prevenzione)?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="rspp" value="internal">
+                            <span>✅ SÌ, interno</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="rspp" value="external">
+                            <span>✅ SÌ, esterno</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="rspp" value="no">
+                            <span>❌ NO</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="rspp" value="unknown">
+                            <span>❓ NON SO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-label">Sono stati nominati Addetti Primo Soccorso e Antincendio?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="addetti" value="both">
+                            <span>✅ SÌ, entrambi</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="addetti" value="one">
+                            <span>⚠️ Solo uno dei due</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="addetti" value="none">
+                            <span>❌ Nessuno</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="addetti" value="unknown">
+                            <span>❓ NON SO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="prevStep()">← Indietro</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Avanti →</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Domande Specifiche per Settore -->
+            <div class="step" data-step="5">
+                <div class="step-title">🎯 Adempimenti Specifici del Settore</div>
+                
+                <div id="sectorSpecificQuestions">
+                    <!-- Popolato dinamicamente in base al settore -->
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="prevStep()">← Indietro</button>
+                    <button class="btn btn-primary" onclick="generateReport()">🔍 Genera Report</button>
+                </div>
+            </div>
+
+            <!-- Step 6: DPI e Sicurezza Generale -->
+            <div class="step" data-step="6">
+                <div class="step-title">🦺 DPI e Sicurezza Operativa</div>
+                
+                <div class="question-box">
+                    <div class="question-label">I DPI (Dispositivi Protezione Individuale) vengono forniti ai lavoratori?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="dpi" value="all">
+                            <span>✅ SÌ, tutti i DPI necessari</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="dpi" value="some">
+                            <span>⚠️ Solo alcuni</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="dpi" value="no">
+                            <span>❌ NO</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="dpi" value="notneeded">
+                            <span>ℹ️ Non necessari per la nostra attività</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-label">Viene tenuto il Registro Infortuni?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="registro" value="yes">
+                            <span>✅ SÌ, aggiornato</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="registro" value="no">
+                            <span>❌ NO</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="registro" value="noinfortuni">
+                            <span>ℹ️ Non ci sono mai stati infortuni</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="registro" value="unknown">
+                            <span>❓ NON SO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-label">È presente un Piano di Emergenza ed Evacuazione?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="emergenza" value="yes">
+                            <span>✅ SÌ, con prove evacuazione periodiche</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="emergenza" value="partial">
+                            <span>⚠️ SÌ, ma senza prove pratiche</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="emergenza" value="no">
+                            <span>❌ NO</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="emergenza" value="unknown">
+                            <span>❓ NON SO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="prevStep()">← Indietro</button>
+                    <button class="btn btn-primary" onclick="generateReport()">🔍 Genera Report</button>
+                </div>
+            </div>
+
+            <!-- Report -->
+            <div class="report" id="reportSection">
+                <div id="reportContent"></div>
+                
+                <div class="buttons">
+                    <button class="btn btn-primary" onclick="window.print()">🖨️ Stampa Report</button>
+                    <button class="btn btn-secondary" onclick="location.reload()">🔄 Nuovo Check</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 6;
+        let userSector = null;
+
+        // Sector-specific questions configuration
+        const sectorQuestions = {
+            horeca: [
+                {
+                    name: 'haccp',
+                    label: '🍴 È stato implementato il sistema HACCP?',
+                    options: [
+                        { value: 'yes', label: '✅ SÌ, con manuale e registrazioni' },
+                        { value: 'partial', label: '⚠️ Parzialmente' },
+                        { value: 'no', label: '❌ NO' },
+                        { value: 'unknown', label: '❓ NON SO' }
+                    ]
+                },
+                {
+                    name: 'antincendio_cucine',
+                    label: '🔥 Impianto antincendio cucine conforme e verificato?',
+                    options: [
+                        { value: 'yes', label: '✅ SÌ' },
+                        { value: 'no', label: '❌ NO' },
+                        { value: 'unknown', label: '❓ NON SO' }
+                    ]
+                }
+            ],
+            construction: [
+                {
+                    name: 'pos',
+                    label: '📋 Viene redatto il POS (Piano Operativo Sicurezza) per ogni cantiere?',
+                    options: [
+                        { value: 'always', label: '✅ Sempre' },
+                        { value: 'sometimes', label: '⚠️ Qualche volta' },
+                        { value: 'no', label: '❌ NO' },
+                        { value: 'unknown', label: '❓ NON SO' }
+                    ]
+                },
+                {
+                    name: 'coordinatore',
+                    label: '👷 È presente Coordinatore Sicurezza nei cantieri?',
+                    options: [
+                        { value: 'yes', label: '✅ SÌ' },
+                        { value: 'no', label: '❌ NO' },
+                        { value: 'notneeded', label: 'ℹ️ Non necessario (cantieri piccoli)' }
+                    ]
+                }
+            ],
+            food: [
+                {
+                    name: 'haccp',
+                    label: '🍴 È stato implementato il sistema HACCP?',
+                    options: [
+                        { value: 'yes', label: '✅ SÌ, con manuale e registrazioni' },
+                        { value: 'partial', label: '⚠️ Parzialmente' },
+                        { value: 'no', label: '❌ NO' },
+                        { value: 'unknown', label: '❓ NON SO' }
+                    ]
+                }
+            ],
+            healthcare: [
+                {
+                    name: 'rischio_biologico',
+                    label: '🦠 Valutazione rischio biologico effettuata?',
+                    options: [
+                        { value: 'yes', label: '✅ SÌ' },
+                        { value: 'no', label: '❌ NO' },
+                        { value: 'unknown', label: '❓ NON SO' }
+                    ]
+                },
+                {
+                    name: 'smaltimento_rifiuti',
+                    label: '🗑️ Procedura smaltimento rifiuti sanitari conforme?',
+                    options: [
+                        { value: 'yes', label: '✅ SÌ' },
+                        { value: 'no', label: '❌ NO' },
+                        { value: 'unknown', label: '❓ NON SO' }
+                    ]
+                }
+            ],
+            personal: [
+                {
+                    name: 'prodotti_chimici',
+                    label: '🧴 Schede sicurezza prodotti chimici disponibili?',
+                    options: [
+                        { value: 'yes', label: '✅ SÌ, tutte' },
+                        { value: 'some', label: '⚠️ Solo alcune' },
+                        { value: 'no', label: '❌ NO' }
+                    ]
+                }
+            ],
+            manufacturing: [
+                {
+                    name: 'macchine',
+                    label: '⚙️ Tutte le macchine hanno certificazione CE e libretto uso?',
+                    options: [
+                        { value: 'yes', label: '✅ SÌ, tutte' },
+                        { value: 'some', label: '⚠️ Solo alcune' },
+                        { value: 'no', label: '❌ NO' },
+                        { value: 'unknown', label: '❓ NON SO' }
+                    ]
+                }
+            ],
+            energy: [
+                {
+                    name: 'impianti_elettrici',
+                    label: '⚡ Verifiche periodiche impianti elettrici effettuate?',
+                    options: [
+                        { value: 'yes', label: '✅ SÌ, regolarmente' },
+                        { value: 'no', label: '❌ NO' },
+                        { value: 'unknown', label: '❓ NON SO' }
+                    ]
+                }
+            ],
+            agriculture: [
+                {
+                    name: 'macchine_agricole',
+                    label: '🚜 Macchine agricole con dispositivi di sicurezza?',
+                    options: [
+                        { value: 'yes', label: '✅ SÌ, tutte' },
+                        { value: 'some', label: '⚠️ Solo alcune' },
+                        { value: 'no', label: '❌ NO' }
+                    ]
+                }
+            ]
+        };
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Option selection
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                this.querySelector('input').checked = true;
+                this.parentElement.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        function nextStep() {
+            // Se siamo allo step 1, salva il settore
+            if (currentStep === 1) {
+                userSector = getVal('sector');
+            }
+
+            // Se siamo allo step 4 e andiamo allo step 5, genera domande specifiche
+            if (currentStep === 4 && userSector && sectorQuestions[userSector]) {
+                generateSectorQuestions();
+            }
+
+            // Se siamo allo step 4 e NON ci sono domande specifiche, salta allo step 6
+            if (currentStep === 4 && (!userSector || !sectorQuestions[userSector])) {
+                document.querySelector(`[data-step="${currentStep}"]`).classList.remove('active');
+                currentStep = 6; // Salta step 5
+                document.querySelector(`[data-step="${currentStep}"]`).classList.add('active');
+                updateProgress();
+                window.scrollTo(0, 0);
+                return;
+            }
+
+            if (currentStep < totalSteps) {
+                document.querySelector(`[data-step="${currentStep}"]`).classList.remove('active');
+                currentStep++;
+                document.querySelector(`[data-step="${currentStep}"]`).classList.add('active');
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function generateSectorQuestions() {
+            const container = document.getElementById('sectorSpecificQuestions');
+            const questions = sectorQuestions[userSector];
+
+            let html = `<div style="background: #e3f2fd; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid #2196f3;">
+                <p style="color: #1565c0; font-weight: 600; margin: 0;">
+                    ℹ️ Le seguenti domande sono specifiche per il settore selezionato
+                </p>
+            </div>`;
+
+            questions.forEach(q => {
+                html += `
+                    <div class="question-box">
+                        <div class="question-label">${q.label}</div>
+                        <div class="options">
+                            ${q.options.map(opt => `
+                                <label class="option">
+                                    <input type="radio" name="${q.name}" value="${opt.value}">
+                                    <span>${opt.label}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+
+            // Re-attach event listeners for new options
+            container.querySelectorAll('.option').forEach(opt => {
+                opt.addEventListener('click', function() {
+                    this.querySelector('input').checked = true;
+                    this.parentElement.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.querySelector(`[data-step="${currentStep}"]`).classList.remove('active');
+                currentStep--;
+                document.querySelector(`[data-step="${currentStep}"]`).classList.add('active');
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function getVal(name) {
+            const el = document.querySelector(`input[name="${name}"]:checked`);
+            return el ? el.value : null;
+        }
+
+        function generateReport() {
+            const data = {
+                company: document.getElementById('companyName').value || 'Azienda Test',
+                employees: parseInt(document.getElementById('numEmployees').value) || 10,
+                sector: getVal('sector'),
+                medico: getVal('medicoNominato'),
+                visite: getVal('visite'),
+                formGen: getVal('formazioneGenerale'),
+                formSpec: getVal('formazioneSpecifica'),
+                formUpd: getVal('formazioneAggiornata'),
+                dvr: getVal('dvr'),
+                rspp: getVal('rspp'),
+                addetti: getVal('addetti')
+            };
+
+            // Calculate score
+            let score = 0;
+            const areas = {
+                medico: { score: 0, status: 'red', issues: [] },
+                formazione: { score: 0, status: 'red', issues: [] },
+                documenti: { score: 0, status: 'red', issues: [] },
+                nomine: { score: 0, status: 'red', issues: [] }
+            };
+
+            // Medico (0-25)
+            if (data.medico === 'yes') {
+                areas.medico.score = 20;
+                if (data.visite === 'all') areas.medico.score = 25;
+                else if (data.visite === 'some') areas.medico.score = 22;
+            } else {
+                // Se NO o NULL (mancante) o UNKNOWN = problema
+                areas.medico.issues.push({
+                    title: 'MEDICO COMPETENTE MANCANTE O NON VERIFICATO',
+                    desc: 'Obbligo assoluto per tutte le aziende con dipendenti.',
+                    fine: 'da 2.740€ a 7.014€'
+                });
+            }
+
+            // Visite mediche - se non "all" = problema
+            if (data.visite !== 'all') {
+                areas.medico.issues.push({
+                    title: 'VISITE MEDICHE NON EFFETTUATE O INCOMPLETE',
+                    desc: 'Ogni lavoratore deve avere visita di idoneità.',
+                    fine: `da 1.096€ a 4.384€ per lavoratore (totale stimato: €${(data.employees * 2000).toLocaleString()})`
+                });
+            }
+
+            // Formazione (0-25)
+            let formScore = 0;
+            if (data.formGen === 'all') formScore += 10;
+            else if (data.formGen === 'some') formScore += 5;
+            else {
+                // Se NONE o NULL o UNKNOWN = problema
+                areas.formazione.issues.push({
+                    title: 'FORMAZIONE GENERALE MANCANTE O NON VERIFICATA',
+                    desc: '4 ore obbligatorie per tutti i dipendenti.',
+                    fine: 'da 1.096€ a 4.384€ per lavoratore'
+                });
+            }
+
+            if (data.formSpec === 'all') formScore += 10;
+            else if (data.formSpec === 'some') formScore += 5;
+            else {
+                areas.formazione.issues.push({
+                    title: 'FORMAZIONE SPECIFICA MANCANTE O NON VERIFICATA',
+                    desc: 'Formazione ruolo-specifica obbligatoria.',
+                    fine: 'da 1.096€ a 4.384€ per lavoratore'
+                });
+            }
+
+            if (data.formUpd === 'yes') formScore += 5;
+            else {
+                areas.formazione.issues.push({
+                    title: 'FORMAZIONE NON AGGIORNATA',
+                    desc: 'Aggiornamento obbligatorio ogni 5 anni.',
+                    fine: 'da 1.096€ a 4.384€'
+                });
+            }
+            areas.formazione.score = formScore;
+
+            // DVR (0-25)
+            if (data.dvr === 'updated') areas.documenti.score = 25;
+            else if (data.dvr === 'old') {
+                areas.documenti.score = 15;
+                areas.documenti.issues.push({
+                    title: 'DVR NON AGGIORNATO',
+                    desc: 'Documento deve essere aggiornato regolarmente.',
+                    fine: 'da 1.096€ a 4.384€'
+                });
+            } else {
+                // Se NO o NULL o UNKNOWN = problema grave
+                areas.documenti.issues.push({
+                    title: 'DVR MANCANTE O NON VERIFICATO',
+                    desc: 'Documento obbligatorio per tutte le aziende.',
+                    fine: 'da 2.740€ a 7.014€ + arresto da 3 a 6 mesi'
+                });
+            }
+
+            // Nomine (0-25)
+            let nomScore = 0;
+            if (data.rspp === 'internal' || data.rspp === 'external') nomScore += 15;
+            else {
+                // Se NO o NULL o UNKNOWN = problema
+                areas.nomine.issues.push({
+                    title: 'RSPP NON NOMINATO O NON VERIFICATO',
+                    desc: 'Responsabile Servizio Prevenzione obbligatorio.',
+                    fine: 'da 2.740€ a 7.014€'
+                });
+            }
+
+            if (data.addetti === 'both') nomScore += 10;
+            else if (data.addetti === 'one') nomScore += 5;
+            else {
+                // Se NONE o NULL o UNKNOWN = problema
+                areas.nomine.issues.push({
+                    title: 'ADDETTI EMERGENZE MANCANTI O NON VERIFICATI',
+                    desc: 'Primo Soccorso e Antincendio obbligatori.',
+                    fine: 'da 2.192€ a 6.576€'
+                });
+            }
+            areas.nomine.score = nomScore;
+
+            // Total score
+            score = areas.medico.score + areas.formazione.score + areas.documenti.score + areas.nomine.score;
+
+            // Status basato su SCORE E ISSUES
+            Object.keys(areas).forEach(key => {
+                if (areas[key].issues.length > 0) {
+                    // Se ci sono issues = almeno yellow, se score basso = red
+                    if (areas[key].score < 10) {
+                        areas[key].status = 'red';
+                    } else {
+                        areas[key].status = 'yellow';
+                    }
+                } else {
+                    // No issues
+                    if (areas[key].score >= 20) areas[key].status = 'green';
+                    else if (areas[key].score >= 10) areas[key].status = 'yellow';
+                    else areas[key].status = 'red';
+                }
+            });
+
+            let overallStatus = score >= 80 ? 'green' : score >= 50 ? 'yellow' : 'red';
+            let statusText = score >= 80 ? '🟢 CONFORME' : score >= 50 ? '🟡 DA MIGLIORARE' : '🔴 CRITICITÀ GRAVI';
+            let bgColor = score >= 80 ? 'linear-gradient(135deg, #28a745 0%, #20c997 100%)' : 
+                          score >= 50 ? 'linear-gradient(135deg, #ffc107 0%, #ff9800 100%)' : 
+                          'linear-gradient(135deg, #dc3545 0%, #c82333 100%)';
+
+            // All issues
+            const allIssues = [
+                ...areas.medico.issues,
+                ...areas.formazione.issues,
+                ...areas.documenti.issues,
+                ...areas.nomine.issues
+            ];
+
+            // Generate HTML
+            let html = `
+                <div class="score-hero" style="background: ${bgColor}">
+                    <div class="company-name">${data.company}</div>
+                    <div class="score-display">${score}<span class="score-suffix">/100</span></div>
+                    <div class="status-badge">${statusText}</div>
+                </div>
+
+                <div class="areas-grid">
+                    <div class="area-card ${areas.medico.status}">
+                        <div class="area-icon">👨‍⚕️</div>
+                        <div class="area-content">
+                            <h3>Medico Competente e Visite</h3>
+                            <p>${areas.medico.issues.length === 0 ? 'Area conforme' : areas.medico.issues.length + ' problemi rilevati'}</p>
+                        </div>
+                    </div>
+
+                    <div class="area-card ${areas.formazione.status}">
+                        <div class="area-icon">📚</div>
+                        <div class="area-content">
+                            <h3>Formazione Sicurezza</h3>
+                            <p>${areas.formazione.issues.length === 0 ? 'Area conforme' : areas.formazione.issues.length + ' problemi rilevati'}</p>
+                        </div>
+                    </div>
+
+                    <div class="area-card ${areas.documenti.status}">
+                        <div class="area-icon">📄</div>
+                        <div class="area-content">
+                            <h3>Documenti (DVR)</h3>
+                            <p>${areas.documenti.issues.length === 0 ? 'Area conforme' : areas.documenti.issues.length + ' problemi rilevati'}</p>
+                        </div>
+                    </div>
+
+                    <div class="area-card ${areas.nomine.status}">
+                        <div class="area-icon">👥</div>
+                        <div class="area-content">
+                            <h3>Nomine Obbligatorie</h3>
+                            <p>${areas.nomine.issues.length === 0 ? 'Area conforme' : areas.nomine.issues.length + ' problemi rilevati'}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            if (allIssues.length > 0) {
+                html += `
+                    <div class="alert-box">
+                        <h3>🚨 Criticità da Sistemare URGENTEMENTE</h3>
+                        ${allIssues.map(issue => `
+                            <div class="problem-item">
+                                <div class="problem-title">${issue.title}</div>
+                                <div class="problem-desc">${issue.desc}</div>
+                                <div class="fine-amount">⚠️ Sanzione: ${issue.fine}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div style="background: #fff3cd; border: 3px solid #ffc107; border-radius: 15px; padding: 35px; margin-bottom: 30px;">
+                        <h3 style="color: #856404; font-size: 22px; margin-bottom: 20px;">⚖️ Rischio Sanzioni in Caso di Ispezione</h3>
+                        <p style="color: #856404; font-size: 15px; line-height: 1.8; margin-bottom: 15px;">
+                            Le criticità evidenziate espongono l'azienda a <strong>sanzioni amministrative e penali</strong> in caso di controllo ispettivo da parte degli organi di vigilanza (ASL, Ispettorato del Lavoro, Vigili del Fuoco).
+                        </p>
+                        <p style="color: #856404; font-size: 15px; line-height: 1.8; margin-bottom: 15px;">
+                            Oltre alle multe, alcune violazioni comportano anche <strong>responsabilità penale</strong> per il datore di lavoro, con rischio di arresto fino a 6 mesi.
+                        </p>
+                        <p style="color: #856404; font-size: 15px; line-height: 1.8; font-weight: 600;">
+                            ⚠️ È fondamentale agire SUBITO per mettersi in regola prima di eventuali controlli.
+                        </p>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 40px; border-radius: 15px; margin-bottom: 30px;">
+                        <h3 style="margin-bottom: 20px; font-size: 24px;">📢 Cosa Fare Ora</h3>
+                        <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid white;">
+                            <p style="font-size: 17px; line-height: 1.8; margin: 0;">
+                                <strong>Comunica SUBITO al tuo commercialista i risultati di questo questionario.</strong>
+                            </p>
+                            <p style="font-size: 17px; line-height: 1.8; margin: 15px 0 0 0;">
+                                Se necessario, chiedigli di contattarci per aiutarti a metterti in regola con tutti gli adempimenti necessari.
+                            </p>
+                        </div>
+                        <p style="opacity: 0.9; font-size: 15px; margin: 0;">
+                            Delivery Care gestisce 18.000 lavoratori per aziende leader e può supportarti nella risoluzione di tutte le criticità evidenziate.
+                        </p>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div style="background: #c6f6d5; padding: 40px; border-radius: 15px; text-align: center; margin-bottom: 30px;">
+                        <h3 style="color: #2f855a; font-size: 24px; margin-bottom: 15px;">✅ Ottimo Lavoro!</h3>
+                        <p style="color: #22543d; font-size: 16px; line-height: 1.8;">
+                            L'azienda risulta <strong>sostanzialmente conforme</strong> al D.Lgs 81/08.<br>
+                            Continuate a mantenere gli adempimenti aggiornati e a effettuare i controlli periodici.
+                        </p>
+                    </div>
+
+                    <div style="background: #e3f2fd; border: 2px solid #2196f3; border-radius: 15px; padding: 30px; margin-bottom: 30px;">
+                        <h3 style="color: #1565c0; font-size: 20px; margin-bottom: 15px;">💡 Raccomandazione</h3>
+                        <p style="color: #1565c0; font-size: 15px; line-height: 1.8;">
+                            Anche se la situazione è buona, <strong>condividi questo report con il tuo commercialista</strong> per una revisione periodica e per assicurarti che tutti gli aggiornamenti normativi siano rispettati.
+                        </p>
+                    </div>
+                `;
+            }
+
+            // Sezione finale comune per tutti
+            html += `
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 45px; border-radius: 15px; text-align: center; margin-bottom: 30px;">
+                    <div style="font-size: 48px; margin-bottom: 20px;">🙏</div>
+                    <h3 style="font-size: 26px; margin-bottom: 20px;">Grazie per Aver Completato il Questionario!</h3>
+                    <p style="font-size: 16px; line-height: 1.8; opacity: 0.95; max-width: 600px; margin: 0 auto 25px auto;">
+                        La sicurezza sul lavoro è un investimento nella salute dei tuoi collaboratori e nella continuità della tua azienda. Hai fatto il primo passo importante verificando la tua situazione.
+                    </p>
+                    <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 10px; margin-top: 25px;">
+                        <p style="font-size: 15px; margin: 0; opacity: 0.9;">
+                            📧 Salva o stampa questo report e condividilo con il tuo consulente di fiducia.
+                        </p>
+                    </div>
+                </div>
+            `;
+
+            html += `
+                <div class="footer-note">
+                    <strong>Nota:</strong> Questo questionario ha scopo informativo.<br>
+                    Per valutazioni certificate, consultare un tecnico specializzato.<br><br>
+                    <strong>Questionario fornito da: Delivery Care SRL in collaborazione con il Tuo Commercialista</strong><br>
+                    Tel: [numero] | Email: [email] | Segrate (MI)
+                </div>
+            `;
+
+            document.getElementById('reportContent').innerHTML = html;
+            document.querySelector(`[data-step="${currentStep}"]`).classList.remove('active');
+            document.getElementById('reportSection').classList.add('active');
+            document.getElementById('progressBar').style.width = '100%';
+            window.scrollTo(0, 0);
+        }
+
+        updateProgress();
+    </script>
+</body>
+</html>
