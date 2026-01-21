@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Check Compliance Sicurezza | Delivery Care</title>
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YKRX5MWW0Z"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-YKRX5MWW0Z');
+        
+        // Funzione per tracciare eventi personalizzati
+        function trackEvent(eventName, eventParams) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', eventName, eventParams);
+            }
+        }
+    </script>
+    
     <style>
         * {
             margin: 0;
@@ -768,6 +785,104 @@
 
                 <div class="buttons">
                     <button class="btn btn-secondary" onclick="prevStep()">← Indietro</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Avanti →</button>
+                </div>
+            </div>
+
+            <!-- Step 7: ANTINCENDIO E IMPIANTI (NUOVO) -->
+            <div class="step" data-step="7">
+                <div class="step-title">🔥 Prevenzione Incendi e Impianti</div>
+                
+                <div class="question-box">
+                    <div class="question-label">Gli estintori sono stati verificati nell'ultimo anno?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="estintori" value="yes">
+                            <span>✅ SÌ, tutti verificati (con etichetta)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="estintori" value="some">
+                            <span>⚠️ Solo alcuni verificati</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="estintori" value="no">
+                            <span>❌ NO o scaduti</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="estintori" value="unknown">
+                            <span>❓ NON SO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-label">Sono state effettuate prove di evacuazione?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="prove_evacuazione" value="regular">
+                            <span>✅ SÌ, almeno 2 volte l'anno</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="prove_evacuazione" value="once">
+                            <span>⚠️ SÌ, ma solo 1 volta o più di 1 anno fa</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="prove_evacuazione" value="never">
+                            <span>❌ MAI effettuate</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="prove_evacuazione" value="unknown">
+                            <span>❓ NON SO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-label">L'impianto elettrico è stato verificato negli ultimi 5 anni?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="impianto_elettrico" value="yes">
+                            <span>✅ SÌ, con certificazione</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="impianto_elettrico" value="old">
+                            <span>⚠️ Verificato ma più di 5 anni fa</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="impianto_elettrico" value="never">
+                            <span>❌ MAI verificato</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="impianto_elettrico" value="unknown">
+                            <span>❓ NON SO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-label">È presente cassetta di primo soccorso conforme e aggiornata?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="cassetta_soccorso" value="yes">
+                            <span>✅ SÌ, completa e verificata periodicamente</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="cassetta_soccorso" value="incomplete">
+                            <span>⚠️ Presente ma non completa o non verificata</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="cassetta_soccorso" value="no">
+                            <span>❌ NO</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="cassetta_soccorso" value="unknown">
+                            <span>❓ NON SO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="prevStep()">← Indietro</button>
                     <button class="btn btn-primary" onclick="generateReport()">🔍 Genera Report</button>
                 </div>
             </div>
@@ -786,7 +901,7 @@
 
     <script>
         let currentStep = 1;
-        const totalSteps = 6;
+        const totalSteps = 7;
         let userSector = null;
 
         // Sector-specific questions configuration
@@ -931,6 +1046,11 @@
             // Se siamo allo step 1, salva il settore
             if (currentStep === 1) {
                 userSector = getVal('sector');
+                // Track inizio questionario
+                trackEvent('questionario_iniziato', {
+                    settore: userSector || 'non_selezionato',
+                    numero_dipendenti: document.getElementById('numEmployees').value || '0'
+                });
             }
 
             // Se siamo allo step 4 e andiamo allo step 5, genera domande specifiche
@@ -1022,16 +1142,26 @@
                 formUpd: getVal('formazioneAggiornata'),
                 dvr: getVal('dvr'),
                 rspp: getVal('rspp'),
-                addetti: getVal('addetti')
+                addetti: getVal('addetti'),
+                dpi: getVal('dpi'),
+                registro: getVal('registro'),
+                emergenza: getVal('emergenza'),
+                // NUOVE DOMANDE ANTINCENDIO
+                estintori: getVal('estintori'),
+                prove_evacuazione: getVal('prove_evacuazione'),
+                impianto_elettrico: getVal('impianto_elettrico'),
+                cassetta_soccorso: getVal('cassetta_soccorso')
             };
 
-            // Calculate score
+            // Calculate score - ORA 7 AREE
             let score = 0;
             const areas = {
                 medico: { score: 0, status: 'red', issues: [] },
                 formazione: { score: 0, status: 'red', issues: [] },
                 documenti: { score: 0, status: 'red', issues: [] },
-                nomine: { score: 0, status: 'red', issues: [] }
+                nomine: { score: 0, status: 'red', issues: [] },
+                dpi_sicurezza: { score: 0, status: 'red', issues: [] },
+                antincendio: { score: 0, status: 'red', issues: [] }
             };
 
             // Medico (0-25)
@@ -1132,8 +1262,89 @@
             }
             areas.nomine.score = nomScore;
 
-            // Total score
-            score = areas.medico.score + areas.formazione.score + areas.documenti.score + areas.nomine.score;
+            // DPI e Sicurezza (0-15)
+            let dpiScore = 0;
+            if (data.dpi === 'all' || data.dpi === 'notneeded') dpiScore += 5;
+            else if (data.dpi === 'some') dpiScore += 2;
+            else {
+                areas.dpi_sicurezza.issues.push({
+                    title: 'DPI NON FORNITI',
+                    desc: 'Dispositivi Protezione Individuale obbligatori.',
+                    fine: 'da 1.096€ a 4.384€'
+                });
+            }
+
+            if (data.registro === 'yes' || data.registro === 'noinfortuni') dpiScore += 5;
+            else {
+                areas.dpi_sicurezza.issues.push({
+                    title: 'REGISTRO INFORTUNI MANCANTE',
+                    desc: 'Obbligo tenuta registro infortuni.',
+                    fine: 'da 548€ a 1.972€'
+                });
+            }
+
+            if (data.emergenza === 'yes') dpiScore += 5;
+            else if (data.emergenza === 'partial') dpiScore += 3;
+            else {
+                areas.dpi_sicurezza.issues.push({
+                    title: 'PIANO EMERGENZA MANCANTE',
+                    desc: 'Piano emergenza ed evacuazione obbligatorio.',
+                    fine: 'da 2.192€ a 8.784€'
+                });
+            }
+            areas.dpi_sicurezza.score = dpiScore;
+
+            // ANTINCENDIO E IMPIANTI (0-20) - AREA CRITICA
+            let antincendioScore = 0;
+            
+            // Estintori (molto controllati)
+            if (data.estintori === 'yes') antincendioScore += 5;
+            else if (data.estintori === 'some') antincendioScore += 2;
+            else {
+                areas.antincendio.issues.push({
+                    title: 'ESTINTORI NON VERIFICATI O SCADUTI',
+                    desc: 'Obbligo verifica annuale estintori con etichetta.',
+                    fine: 'da 2.064€ a 12.386€ + rischio sospensione attività'
+                });
+            }
+
+            // Prove evacuazione (molto importante)
+            if (data.prove_evacuazione === 'regular') antincendioScore += 5;
+            else if (data.prove_evacuazione === 'once') antincendioScore += 2;
+            else {
+                areas.antincendio.issues.push({
+                    title: 'PROVE EVACUAZIONE MAI EFFETTUATE',
+                    desc: 'Obbligo prove evacuazione almeno 2 volte l\'anno.',
+                    fine: 'da 2.192€ a 8.784€'
+                });
+            }
+
+            // Impianto elettrico (critico)
+            if (data.impianto_elettrico === 'yes') antincendioScore += 5;
+            else if (data.impianto_elettrico === 'old') antincendioScore += 2;
+            else {
+                areas.antincendio.issues.push({
+                    title: 'IMPIANTO ELETTRICO NON VERIFICATO',
+                    desc: 'Obbligo verifica impianti elettrici (ogni 2-5 anni).',
+                    fine: 'da 1.000€ a 4.800€ + rischio penale in caso incidente'
+                });
+            }
+
+            // Cassetta primo soccorso
+            if (data.cassetta_soccorso === 'yes') antincendioScore += 5;
+            else if (data.cassetta_soccorso === 'incomplete') antincendioScore += 2;
+            else {
+                areas.antincendio.issues.push({
+                    title: 'CASSETTA PRIMO SOCCORSO MANCANTE',
+                    desc: 'Obbligo cassetta/pacchetto medicazione conforme.',
+                    fine: 'da 2.192€ a 4.384€'
+                });
+            }
+            areas.antincendio.score = antincendioScore;
+
+            // Total score (0-100)
+            score = areas.medico.score + areas.formazione.score + areas.documenti.score + 
+                    areas.nomine.score + areas.dpi_sicurezza.score + areas.antincendio.score;
 
             // Status basato su SCORE E ISSUES
             Object.keys(areas).forEach(key => {
@@ -1206,6 +1417,22 @@
                             <p>${areas.nomine.issues.length === 0 ? 'Area conforme' : areas.nomine.issues.length + ' problemi rilevati'}</p>
                         </div>
                     </div>
+
+                    <div class="area-card ${areas.dpi_sicurezza.status}">
+                        <div class="area-icon">🦺</div>
+                        <div class="area-content">
+                            <h3>DPI e Sicurezza</h3>
+                            <p>${areas.dpi_sicurezza.issues.length === 0 ? 'Area conforme' : areas.dpi_sicurezza.issues.length + ' problemi rilevati'}</p>
+                        </div>
+                    </div>
+
+                    <div class="area-card ${areas.antincendio.status}">
+                        <div class="area-icon">🔥</div>
+                        <div class="area-content">
+                            <h3>Antincendio e Impianti</h3>
+                            <p>${areas.antincendio.issues.length === 0 ? 'Area conforme' : areas.antincendio.issues.length + ' problemi rilevati'}</p>
+                        </div>
+                    </div>
                 </div>
             `;
 
@@ -1246,7 +1473,7 @@
                             </p>
                         </div>
                         <p style="opacity: 0.9; font-size: 15px; margin: 0;">
-                            Delivery Care gestisce 18.000 lavoratori per aziende leader e può supportarti nella risoluzione di tutte le criticità evidenziate.
+                            Delivery Care gestisce 31.000+ lavoratori in 42 province per aziende leader e può supportarti nella risoluzione di tutte le criticità evidenziate.
                         </p>
                     </div>
                 `;
@@ -1289,8 +1516,8 @@
                 <div class="footer-note">
                     <strong>Nota:</strong> Questo questionario ha scopo informativo.<br>
                     Per valutazioni certificate, consultare un tecnico specializzato.<br><br>
-                    <strong>Questionario fornito da: Delivery Care SRL in collaborazione con il Tuo Commercialista</strong><br>
-                    Tel: [numero] | Email: [email] | Segrate (MI)
+                    <strong>Questionario fornito da: Delivery Care SRL</strong><br>
+                    31.000+ lavoratori in sorveglianza sanitaria | 42 province coperte
                 </div>
             `;
 
@@ -1298,6 +1525,22 @@
             document.querySelector(`[data-step="${currentStep}"]`).classList.remove('active');
             document.getElementById('reportSection').classList.add('active');
             document.getElementById('progressBar').style.width = '100%';
+            
+            // Track completamento questionario con dettagli
+            trackEvent('questionario_completato', {
+                settore: data.sector || 'non_selezionato',
+                numero_dipendenti: data.employees,
+                punteggio: score,
+                status: overallStatus,
+                numero_criticita: allIssues.length,
+                area_medico: areas.medico.status,
+                area_formazione: areas.formazione.status,
+                area_documenti: areas.documenti.status,
+                area_nomine: areas.nomine.status,
+                area_dpi: areas.dpi_sicurezza.status,
+                area_antincendio: areas.antincendio.status
+            });
+            
             window.scrollTo(0, 0);
         }
 
