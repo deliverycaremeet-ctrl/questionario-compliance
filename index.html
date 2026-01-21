@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Check gratuito compliance sicurezza lavoro D.Lgs 81/08 - Verifica in 10 minuti">
     <title>Check Compliance Sicurezza Lavoro | Delivery Care</title>
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YKRX5MWW0Z"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-YKRX5MWW0Z');
+        
+        // Track click su pulsante "Avvia Check"
+        function trackQuestionarioStart() {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'click_avvia_questionario', {
+                    event_category: 'engagement',
+                    event_label: 'Landing Page CTA'
+                });
+            }
+        }
+    </script>
+    
     <style>
         * {
             margin: 0;
@@ -256,6 +276,8 @@
                     <li>DVR (Documento Valutazione Rischi)</li>
                     <li>Nomine Obbligatorie (RSPP, RLS, Addetti)</li>
                     <li>DPI e Piano di Emergenza</li>
+                    <li>Prevenzione Incendi (estintori, prove evacuazione)</li>
+                    <li>Impianti Elettrici e Cassetta Primo Soccorso</li>
                     <li>Adempimenti Specifici del Settore (HACCP, POS, ecc.)</li>
                 </ul>
             </div>
@@ -278,7 +300,7 @@
             <div class="cta-section">
                 <h2>Inizia la Verifica Ora</h2>
                 <p>Gratuito • Nessuna registrazione • Report immediato</p>
-                <a href="questionario.html" class="btn">🚀 Avvia Check Compliance</a>
+                <a href="questionario.html" class="btn" onclick="trackQuestionarioStart()">🚀 Avvia Check Compliance</a>
             </div>
 
             <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 12px; padding: 25px; margin-bottom: 30px;">
@@ -296,9 +318,8 @@
 
         <div class="footer">
             <p>
-                <strong>Questionario fornito da:</strong> Delivery Care SRL in collaborazione con il Tuo Commercialista<br>
-                18.000+ lavoratori gestiti | 40 province coperte<br>
-                📍 Segrate (MI) | 📞 [numero] | 📧 [email]
+                <strong>Questionario fornito da: Delivery Care SRL</strong><br>
+                31.000+ lavoratori in sorveglianza sanitaria
             </p>
             <p style="margin-top: 15px; font-size: 12px;">
                 © 2025 Delivery Care SRL - Strumento informativo. Per valutazioni certificate consultare un tecnico specializzato.
