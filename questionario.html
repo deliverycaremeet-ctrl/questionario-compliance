@@ -1164,11 +1164,11 @@
                 antincendio: { score: 0, status: 'red', issues: [] }
             };
 
-            // Medico (0-25)
+            // Medico (0-15)
             if (data.medico === 'yes') {
-                areas.medico.score = 20;
-                if (data.visite === 'all') areas.medico.score = 25;
-                else if (data.visite === 'some') areas.medico.score = 22;
+                areas.medico.score = 10;
+                if (data.visite === 'all') areas.medico.score = 15;
+                else if (data.visite === 'some') areas.medico.score = 12;
             } else {
                 // Se NO o NULL (mancante) o UNKNOWN = problema
                 areas.medico.issues.push({
@@ -1187,10 +1187,10 @@
                 });
             }
 
-            // Formazione (0-25)
+            // Formazione (0-20)
             let formScore = 0;
-            if (data.formGen === 'all') formScore += 10;
-            else if (data.formGen === 'some') formScore += 5;
+            if (data.formGen === 'all') formScore += 8;
+            else if (data.formGen === 'some') formScore += 4;
             else {
                 // Se NONE o NULL o UNKNOWN = problema
                 areas.formazione.issues.push({
@@ -1200,8 +1200,8 @@
                 });
             }
 
-            if (data.formSpec === 'all') formScore += 10;
-            else if (data.formSpec === 'some') formScore += 5;
+            if (data.formSpec === 'all') formScore += 8;
+            else if (data.formSpec === 'some') formScore += 4;
             else {
                 areas.formazione.issues.push({
                     title: 'FORMAZIONE SPECIFICA MANCANTE O NON VERIFICATA',
@@ -1210,7 +1210,7 @@
                 });
             }
 
-            if (data.formUpd === 'yes') formScore += 5;
+            if (data.formUpd === 'yes') formScore += 4;
             else {
                 areas.formazione.issues.push({
                     title: 'FORMAZIONE NON AGGIORNATA',
@@ -1220,10 +1220,10 @@
             }
             areas.formazione.score = formScore;
 
-            // DVR (0-25)
-            if (data.dvr === 'updated') areas.documenti.score = 25;
+            // DVR (0-20)
+            if (data.dvr === 'updated') areas.documenti.score = 20;
             else if (data.dvr === 'old') {
-                areas.documenti.score = 15;
+                areas.documenti.score = 12;
                 areas.documenti.issues.push({
                     title: 'DVR NON AGGIORNATO',
                     desc: 'Documento deve essere aggiornato regolarmente.',
@@ -1238,9 +1238,9 @@
                 });
             }
 
-            // Nomine (0-25)
+            // Nomine (0-15)
             let nomScore = 0;
-            if (data.rspp === 'internal' || data.rspp === 'external') nomScore += 15;
+            if (data.rspp === 'internal' || data.rspp === 'external') nomScore += 10;
             else {
                 // Se NO o NULL o UNKNOWN = problema
                 areas.nomine.issues.push({
@@ -1250,8 +1250,8 @@
                 });
             }
 
-            if (data.addetti === 'both') nomScore += 10;
-            else if (data.addetti === 'one') nomScore += 5;
+            if (data.addetti === 'both') nomScore += 5;
+            else if (data.addetti === 'one') nomScore += 2;
             else {
                 // Se NONE o NULL o UNKNOWN = problema
                 areas.nomine.issues.push({
@@ -1262,10 +1262,10 @@
             }
             areas.nomine.score = nomScore;
 
-            // DPI e Sicurezza (0-15)
+            // DPI e Sicurezza (0-10)
             let dpiScore = 0;
-            if (data.dpi === 'all' || data.dpi === 'notneeded') dpiScore += 5;
-            else if (data.dpi === 'some') dpiScore += 2;
+            if (data.dpi === 'all' || data.dpi === 'notneeded') dpiScore += 3;
+            else if (data.dpi === 'some') dpiScore += 1;
             else {
                 areas.dpi_sicurezza.issues.push({
                     title: 'DPI NON FORNITI',
@@ -1274,7 +1274,7 @@
                 });
             }
 
-            if (data.registro === 'yes' || data.registro === 'noinfortuni') dpiScore += 5;
+            if (data.registro === 'yes' || data.registro === 'noinfortuni') dpiScore += 3;
             else {
                 areas.dpi_sicurezza.issues.push({
                     title: 'REGISTRO INFORTUNI MANCANTE',
@@ -1283,8 +1283,8 @@
                 });
             }
 
-            if (data.emergenza === 'yes') dpiScore += 5;
-            else if (data.emergenza === 'partial') dpiScore += 3;
+            if (data.emergenza === 'yes') dpiScore += 4;
+            else if (data.emergenza === 'partial') dpiScore += 2;
             else {
                 areas.dpi_sicurezza.issues.push({
                     title: 'PIANO EMERGENZA MANCANTE',
