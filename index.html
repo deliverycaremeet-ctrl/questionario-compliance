@@ -1,330 +1,654 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Check gratuito compliance sicurezza lavoro D.Lgs 81/08 - Verifica in 10 minuti">
-    <title>Check Compliance Sicurezza Lavoro | Delivery Care</title>
-    
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YKRX5MWW0Z"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-YKRX5MWW0Z');
-        
-        // Track click su pulsante "Avvia Check"
-        function trackQuestionarioStart() {
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'click_avvia_questionario', {
-                    event_category: 'engagement',
-                    event_label: 'Landing Page CTA'
-                });
-            }
-        }
-    </script>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            padding: 60px 40px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 42px;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 20px;
-            opacity: 0.95;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .content {
-            padding: 50px 40px;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .feature {
-            text-align: center;
-            padding: 25px;
-            background: #f8f9fa;
-            border-radius: 15px;
-            transition: transform 0.3s;
-        }
-
-        .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .feature-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-        }
-
-        .feature h3 {
-            font-size: 18px;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .feature p {
-            color: #6c757d;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .cta-section {
-            text-align: center;
-            padding: 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            margin-bottom: 40px;
-        }
-
-        .cta-section h2 {
-            color: white;
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-
-        .cta-section p {
-            color: white;
-            opacity: 0.95;
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 18px 40px;
-            background: white;
-            color: #667eea;
-            text-decoration: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 700;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .info-box {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-
-        .info-box h3 {
-            color: #1565c0;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-
-        .info-box ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .info-box li {
-            padding: 8px 0;
-            color: #1565c0;
-            font-size: 15px;
-        }
-
-        .info-box li:before {
-            content: "✓ ";
-            color: #2196f3;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin: 40px 0;
-            text-align: center;
-        }
-
-        .stat {
-            padding: 20px;
-        }
-
-        .stat-number {
-            font-size: 48px;
-            font-weight: 800;
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            color: #6c757d;
-            font-size: 14px;
-        }
-
-        .footer {
-            background: #f8f9fa;
-            padding: 30px 40px;
-            text-align: center;
-            color: #6c757d;
-            font-size: 14px;
-        }
-
-        .footer strong {
-            color: #2c3e50;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            .content {
-                padding: 30px 20px;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-section h2 {
-                font-size: 24px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Check-up Sicurezza | Delivery Care</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YKRX5MWW0Z"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YKRX5MWW0Z');gtag('config','AW-17912451655');</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vlau8uhjsv");</script>
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1200545094868439');fbq('track','PageView');</script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:#1e293b}
+.screen{display:none;height:100vh;height:100dvh;flex-direction:column;padding:16px;max-width:500px;margin:0 auto}
+.screen.active{display:flex}
+.logo{height:32px}
+.landing-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:10px}
+.trust-badge{font-size:12px;color:#00A67E;font-weight:600}
+.landing-content{flex:1;display:flex;flex-direction:column;justify-content:center}
+.landing-question{text-align:center;margin-bottom:16px}
+.landing-question h1{font-size:24px;font-weight:700;margin-bottom:6px}
+.landing-question h1 span{color:#0F4C81}
+.landing-question p{font-size:14px;color:#64748b}
+.time-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,166,126,.1);color:#00A67E;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;margin-bottom:8px}
+.sector-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.sector-btn{display:flex;flex-direction:column;align-items:center;padding:16px 10px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;transition:all .15s}
+.sector-btn:hover{border-color:#0F4C81;background:#fff}
+.sector-btn:active{transform:scale(.97)}
+.sector-btn .icon{font-size:36px;margin-bottom:8px}
+.sector-btn .label{font-size:14px;font-weight:600;color:#1e293b}
+.landing-footer{text-align:center;padding-top:8px;font-size:10px;color:#64748b}
+.quiz-header{padding-bottom:12px}
+.progress-bar{height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden;margin-bottom:6px}
+.progress-fill{height:100%;background:linear-gradient(90deg,#0F4C81,#00A67E);transition:width .3s}
+.progress-text{font-size:13px;color:#64748b;text-align:right}
+.section-badge{display:inline-block;background:rgba(15,76,129,.1);color:#0F4C81;padding:6px 14px;border-radius:16px;font-size:14px;font-weight:600;margin-top:8px}
+.quiz-content{flex:1;display:flex;flex-direction:column;justify-content:center}
+.question-text{font-size:22px;font-weight:700;text-align:center;margin-bottom:24px;color:#1e293b}
+.options-list{display:flex;flex-direction:column;gap:10px}
+.option-btn{display:flex;align-items:center;gap:12px;padding:16px 14px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;text-align:left;width:100%;transition:all .15s}
+.option-btn:hover{border-color:#0F4C81;background:#fff}
+.option-btn:active{transform:scale(.98)}
+.option-btn.selected{border-color:#0F4C81;background:rgba(15,76,129,.05)}
+.option-icon{font-size:24px}
+.option-text{font-size:16px;font-weight:500;color:#1e293b}
+.option-skip{border:2px dashed #cbd5e1;background:#fff}
+.option-skip .option-text{color:#64748b}
+.quiz-footer{padding-top:12px;text-align:center}
+.back-link{font-size:14px;color:#64748b;cursor:pointer;padding:8px 16px}
+.back-link:hover{color:#0F4C81}
+.report-header{text-align:center;padding:20px 0}
+.report-header h2{font-size:16px;font-weight:600;color:#64748b;margin-bottom:16px}
+.score-circle{width:140px;height:140px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;border:8px solid #00A67E;background:rgba(0,166,126,.05)}
+.score-value{font-size:48px;font-weight:700;color:#1e293b}
+.score-value span{font-size:24px}
+.score-label{font-size:18px;font-weight:700;padding:8px 20px;border-radius:20px}
+.stats-row{display:flex;justify-content:center;gap:40px;margin-top:20px}
+.stat-item{text-align:center}
+.stat-number{font-size:32px;font-weight:700;color:#0F4C81}
+.stat-label{font-size:12px;color:#64748b;text-transform:uppercase;margin-top:4px}
+.email-box{background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-radius:16px;padding:24px;border:2px solid #e2e8f0;margin-top:20px}
+.email-box h3{font-size:18px;font-weight:700;margin-bottom:8px;text-align:center;color:#1e293b}
+.email-box p{font-size:14px;color:#64748b;margin-bottom:16px;text-align:center}
+.form-row{margin-bottom:12px}
+.form-row input{width:100%;padding:14px;border:2px solid #e2e8f0;border-radius:10px;font-size:16px;background:#fff}
+.form-row input:focus{outline:none;border-color:#0F4C81}
+.form-row label{display:block;font-size:12px;color:#64748b;margin-bottom:4px;font-weight:600}
+.checkbox-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px}
+.checkbox-row input{width:20px;height:20px;margin-top:2px;accent-color:#0F4C81}
+.checkbox-row label{font-size:13px;color:#64748b}
+.checkbox-row a{color:#0F4C81;font-weight:600}
+.submit-btn{width:100%;padding:16px;background:linear-gradient(135deg,#00A67E,#059669);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s}
+.submit-btn:hover{transform:scale(1.02)}
+.submit-btn:active{transform:scale(.98)}
+.full-report-header{text-align:center;padding:12px 0;border-bottom:2px solid #e2e8f0}
+.full-report-content{flex:1;overflow-y:auto;padding:12px 0}
+.contact-box{background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-radius:12px;padding:16px;margin:16px 0;border:2px solid #0F4C81}
+.contact-box h4{font-size:15px;font-weight:700;margin-bottom:12px;color:#0F4C81}
+.contact-box input{width:100%;padding:12px;border:2px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:8px;background:#fff}
+.contact-box button{width:100%;padding:12px;background:linear-gradient(135deg,#0F4C81,#0a3659);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
+.restart-btn{width:100%;padding:14px;background:#f8fafc;color:#1e293b;border:2px solid #e2e8f0;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;margin-top:12px}
+.restart-btn:hover{border-color:#0F4C81}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:16px}
+.modal.active{display:flex}
+.modal-box{background:#fff;border-radius:16px;padding:24px;max-width:360px;width:100%;max-height:80vh;overflow-y:auto}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.modal-header h3{font-size:16px;font-weight:700;color:#1e293b}
+.modal-close{width:32px;height:32px;border-radius:50%;background:#f8fafc;border:none;font-size:18px;cursor:pointer}
+.modal-body{font-size:13px;color:#64748b;line-height:1.6}
+.mini-report-scroll{flex:1;overflow-y:auto}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="hero">
-            <h1>🛡️ Check Compliance Sicurezza Lavoro</h1>
-            <p>Verifica gratuitamente la conformità aziendale al D.Lgs 81/08 in 10 minuti. Report immediato con criticità e sanzioni.</p>
-        </div>
 
-        <div class="content">
-            <div class="features">
-                <div class="feature">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Veloce</h3>
-                    <p>10 minuti per completare il questionario e ricevere il report</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Preciso</h3>
-                    <p>Domande specifiche per 18 settori diversi di attività</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">📊</div>
-                    <h3>Completo</h3>
-                    <p>Report dettagliato con punteggio, criticità e sanzioni stimate</p>
-                </div>
-            </div>
+<div class="screen active" id="screenLanding">
+<header class="landing-header">
+<img src="https://raw.githubusercontent.com/deliverycaremeet-ctrl/questionario-sicurezza/main/LOGO_Delivery_Care.png" alt="Delivery Care" class="logo">
+<div class="trust-badge">✓ 100% gratuito</div>
+</header>
+<main class="landing-content">
+<div class="landing-question">
+<div class="time-badge">⏱️ 2 minuti • Gratuito</div>
+<h1>La tua azienda è <span>in regola</span>?</h1>
+<p>Scoprilo subito. In quale settore operi?</p>
+</div>
+<div class="sector-grid">
+<button class="sector-btn" onclick="startQuiz('Uffici')"><span class="icon">🏢</span><span class="label">Uffici / IT</span></button>
+<button class="sector-btn" onclick="startQuiz('Logistica')"><span class="icon">🚚</span><span class="label">Logistica</span></button>
+<button class="sector-btn" onclick="startQuiz('Produzione')"><span class="icon">🏭</span><span class="label">Produzione</span></button>
+<button class="sector-btn" onclick="startQuiz('Edilizia')"><span class="icon">🏗️</span><span class="label">Edilizia</span></button>
+<button class="sector-btn" onclick="startQuiz('Commercio')"><span class="icon">🛒</span><span class="label">Commercio</span></button>
+<button class="sector-btn" onclick="startQuiz('Sanita')"><span class="icon">🏥</span><span class="label">Sanità</span></button>
+<button class="sector-btn" onclick="startQuiz('Ristorazione')"><span class="icon">🍽️</span><span class="label">Ristorazione</span></button>
+<button class="sector-btn" onclick="startQuiz('Altro')"><span class="icon">🎯</span><span class="label">Altro</span></button>
+</div>
+</main>
+<footer class="landing-footer">Delivery Care Srl - Società Benefit</footer>
+</div>
 
-            <div class="info-box">
-                <h3>✅ Cosa Verifica il Check:</h3>
-                <ul>
-                    <li>Medico Competente e Sorveglianza Sanitaria</li>
-                    <li>Formazione Sicurezza (generale e specifica)</li>
-                    <li>DVR (Documento Valutazione Rischi)</li>
-                    <li>Nomine Obbligatorie (RSPP, RLS, Addetti)</li>
-                    <li>DPI e Piano di Emergenza</li>
-                    <li>Prevenzione Incendi (estintori, prove evacuazione)</li>
-                    <li>Impianti Elettrici e Cassetta Primo Soccorso</li>
-                    <li>Adempimenti Specifici del Settore (HACCP, POS, ecc.)</li>
-                </ul>
-            </div>
+<div class="screen" id="screenQuestion">
+<header class="quiz-header">
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<div class="progress-text" id="progressText">1 di 15</div>
+<div class="section-badge" id="sectionBadge">Sezione</div>
+</header>
+<main class="quiz-content">
+<h2 class="question-text" id="questionText">Domanda?</h2>
+<div class="options-list" id="optionsList"></div>
+</main>
+<footer class="quiz-footer">
+<span class="back-link" id="backLink" onclick="goBack()">← Indietro</span>
+</footer>
+</div>
 
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-number">18</div>
-                    <div class="stat-label">Settori Coperti</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">6</div>
-                    <div class="stat-label">Aree Valutate</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">10</div>
-                    <div class="stat-label">Minuti</div>
-                </div>
-            </div>
+<div class="screen" id="screenMiniReport">
+<div class="mini-report-scroll">
+<header class="report-header">
+<h2>Il tuo risultato</h2>
+<div class="score-circle" id="scoreCircle2"><span class="score-value"><span id="scoreValue2">0</span><span>%</span></span></div>
+<span class="score-label" id="scoreLabel2">...</span>
+<div class="stats-row">
+<div class="stat-item"><div class="stat-number" id="criticalCount2">0</div><div class="stat-label">Criticità</div></div>
+<div class="stat-item"><div class="stat-number" id="urgentCount2">0</div><div class="stat-label">Urgenti</div></div>
+</div>
+</header>
+<div class="email-box">
+<h3>📧 Ricevi il report completo</h3>
+<p>Dettaglio criticità, sanzioni e azioni consigliate</p>
+<div class="form-row"><label>Email aziendale *</label><input type="email" id="emailInput" placeholder="mario.rossi@azienda.it"></div>
+<div class="form-row"><label>Nome referente</label><input type="text" id="nomeInput" placeholder="Mario Rossi"></div>
+<div class="form-row"><label>Nome azienda</label><input type="text" id="aziendaInput" placeholder="Rossi SRL"></div>
+<div class="form-row"><label>Telefono</label><input type="tel" id="telefonoInput" placeholder="333 1234567"></div>
+<div class="checkbox-row"><input type="checkbox" id="privacyCheck"><label>Accetto l'<a href="#" onclick="openPrivacy(event)">informativa privacy</a> *</label></div>
+<button class="submit-btn" onclick="submitEmail()">📊 Visualizza Report Completo</button>
+</div>
+</div>
+</div>
 
-            <div class="cta-section">
-                <h2>Inizia la Verifica Ora</h2>
-                <p>Gratuito • Nessuna registrazione • Report immediato</p>
-                <a href="questionario.html" class="btn" onclick="trackQuestionarioStart()">🚀 Avvia Check Compliance</a>
-            </div>
+<div class="screen" id="screenFullReport">
+<header class="full-report-header">
+<img src="https://raw.githubusercontent.com/deliverycaremeet-ctrl/questionario-sicurezza/main/LOGO_Delivery_Care.png" alt="Delivery Care" style="height:28px">
+</header>
+<main class="full-report-content" id="reportContent"></main>
+<footer><button class="restart-btn" onclick="restart()">🔄 Nuovo check-up</button></footer>
+</div>
 
-            <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 12px; padding: 25px; margin-bottom: 30px;">
-                <h3 style="color: #856404; margin-bottom: 15px; font-size: 20px;">⚠️ Perché È Importante</h3>
-                <p style="color: #856404; line-height: 1.8; margin-bottom: 15px;">
-                    Con l'intensificazione dei controlli ispettivi sulla sicurezza sul lavoro, le aziende non conformi rischiano:
-                </p>
-                <ul style="list-style: none; padding-left: 0;">
-                    <li style="color: #856404; padding: 5px 0;">💰 Sanzioni da €1.000 fino a €18.000</li>
-                    <li style="color: #856404; padding: 5px 0;">⚖️ Responsabilità penale con arresto fino a 6 mesi</li>
-                    <li style="color: #856404; padding: 5px 0;">🚫 Sospensione attività aziendale</li>
-                </ul>
-            </div>
-        </div>
+<div class="modal" id="privacyModal" onclick="if(event.target===this)closePrivacy()">
+<div class="modal-box">
+<div class="modal-header"><h3>🔒 Informativa Privacy</h3><button class="modal-close" onclick="closePrivacy()">×</button></div>
+<div class="modal-body">
+<p><b>Titolare:</b> Delivery Care Srl - Società Benefit<br>P.zza centro commerciale 44, 20090 Segrate (MI)<br>P.IVA 11263630961</p>
+<p style="margin-top:12px"><b>Finalità:</b> Invio report conformità D.Lgs 81/08, gestione richiesta consulenza.</p>
+<p style="margin-top:12px"><b>Base giuridica:</b> Consenso dell'interessato (Art. 6.1.a GDPR)</p>
+<p style="margin-top:12px"><b>Diritti:</b> Accesso, rettifica, cancellazione, opposizione.<br>Contatto: info@deliverycare.it</p>
+</div>
+</div>
+</div>
 
-        <div class="footer">
-            <p>
-                <strong>Questionario fornito da: Delivery Care SRL</strong><br>
-                31.000+ lavoratori in sorveglianza sanitaria
-            </p>
-            <p style="margin-top: 15px; font-size: 12px;">
-                © 2025 Delivery Care SRL - Strumento informativo. Per valutazioni certificate consultare un tecnico specializzato.
-            </p>
-        </div>
-    </div>
+<script>
+var SHEET_URL="https://script.google.com/macros/s/AKfycbxzxAES75zzCDy6ROvKmWjCko6oLbPKJBD1oXePTZ0h7Zh5uD9S13LeehOaLKvz8X1a/exec";
+
+var sanzioni={
+"Hai nominato il Medico Competente?":["MEDICO COMPETENTE MANCANTE","Obbligo per tutte le aziende con rischi","€2.740-€7.014 + arresto 2-4 mesi"],
+"Visite mediche effettuate?":["VISITE MEDICHE NON EFFETTUATE","Ogni lavoratore deve avere visita preventiva","€1.096-€4.384 per lavoratore"],
+"Formazione generale (4h) completata?":["FORMAZIONE GENERALE MANCANTE","4 ore obbligatorie per tutti i lavoratori","€1.315-€5.699 per lavoratore"],
+"Formazione specifica mansione?":["FORMAZIONE SPECIFICA MANCANTE","Obbligatoria in base alla mansione","€1.096-€4.384 per lavoratore"],
+"Aggiornamento (ogni 5 anni)?":["AGGIORNAMENTO NON EFFETTUATO","Ogni 5 anni obbligatorio","€1.096-€4.384"],
+"DVR presente e aggiornato?":["DVR MANCANTE O NON AGGIORNATO","Documento Valutazione Rischi obbligatorio","€2.740-€7.014 + arresto 3-6 mesi"],
+"RSPP nominato?":["RSPP NON NOMINATO","Responsabile Servizio Prevenzione obbligatorio","€2.740-€7.014 + arresto 3-6 mesi"],
+"Addetti Emergenze nominati?":["ADDETTI EMERGENZE MANCANTI","Antincendio e Primo Soccorso obbligatori","€822-€4.384"],
+"DPI forniti ai lavoratori?":["DPI NON FORNITI","Dispositivi Protezione Individuale obbligatori","€1.644-€6.576 + arresto 2-4 mesi"],
+"Piano emergenza presente?":["PIANO EMERGENZA MANCANTE","Piano evacuazione obbligatorio","€2.192-€5.918"],
+"Cassetta primo soccorso?":["CASSETTA PRIMO SOCCORSO MANCANTE","Obbligatoria in ogni sede","€548-€1.972"],
+"Estintori verificati?":["ESTINTORI NON VERIFICATI","Verifica annuale obbligatoria","€2.064-€12.386 + sospensione attività"],
+"Prove evacuazione?":["PROVE EVACUAZIONE NON EFFETTUATE","Almeno annuale obbligatoria","€2.192-€5.918"],
+"Impianto elettrico verificato?":["IMPIANTO ELETTRICO NON VERIFICATO","Verifica biennale DPR 462 obbligatoria","€516-€2.582"]
+};
+
+var questions=[
+{s:"👨‍⚕️ Sorveglianza Sanitaria",q:"Hai nominato il Medico Competente?",k:"medicoNominato",o:[{t:"Sì, nominato",i:"✅",p:10,v:"yes"},{t:"No",i:"❌",p:0,v:"no"},{t:"Non so",i:"➡️",p:2,v:"unknown",skip:1}]},
+{s:"👨‍⚕️ Sorveglianza Sanitaria",q:"Visite mediche effettuate?",k:"visiteMediche",o:[{t:"Sì, tutti",i:"✅",p:10,v:"all"},{t:"Solo alcuni",i:"⚠️",p:5,v:"some"},{t:"No",i:"❌",p:0,v:"none"},{t:"Non so",i:"➡️",p:2,v:"unknown",skip:1}]},
+{s:"👨‍⚕️ Sorveglianza Sanitaria",q:"Quanti dipendenti ha l'azienda?",k:"dipendenti",info:1,o:[{t:"1-15",i:"👥",p:0,v:"1-15"},{t:"16-100",i:"👥",p:0,v:"16-100"},{t:"101-250",i:"👥",p:0,v:"101-250"},{t:"Oltre 250",i:"👥",p:0,v:"250+"}]},
+{s:"📚 Formazione",q:"Formazione generale (4h) completata?",k:"formazioneGenerale",o:[{t:"Sì, tutti",i:"✅",p:10,v:"all"},{t:"Solo alcuni",i:"⚠️",p:5,v:"some"},{t:"Nessuno",i:"❌",p:0,v:"none"},{t:"Non so",i:"➡️",p:2,v:"unknown",skip:1}]},
+{s:"📚 Formazione",q:"Formazione specifica mansione?",k:"formazioneSpecifica",o:[{t:"Sì, tutti",i:"✅",p:10,v:"all"},{t:"Solo alcuni",i:"⚠️",p:5,v:"some"},{t:"Nessuno",i:"❌",p:0,v:"none"},{t:"Non so",i:"➡️",p:2,v:"unknown",skip:1}]},
+{s:"📚 Formazione",q:"Aggiornamento (ogni 5 anni)?",k:"formazioneAggiornata",o:[{t:"Sì, in regola",i:"✅",p:10,v:"yes"},{t:"No",i:"❌",p:0,v:"no"},{t:"Non so",i:"➡️",p:2,v:"unknown",skip:1}]},
+{s:"📄 Documenti",q:"DVR presente e aggiornato?",k:"dvr",o:[{t:"Sì, aggiornato",i:"✅",p:10,v:"updated"},{t:"Sì, ma datato",i:"⚠️",p:5,v:"old"},{t:"No",i:"❌",p:0,v:"no"},{t:"Non so",i:"➡️",p:2,v:"unknown",skip:1}]},
+{s:"👥 Nomine",q:"RSPP nominato?",k:"rspp",o:[{t:"Sì, esterno",i:"✅",p:10,v:"external"},{t:"Sì, interno",i:"✅",p:10,v:"internal"},{t:"No",i:"❌",p:0,v:"no"},{t:"Non so",i:"➡️",p:2,v:"unknown",skip:1}]},
+{s:"👥 Nomine",q:"Addetti Emergenze nominati?",k:"addettiEmergenze",o:[{t:"Antincendio + PS",i:"✅",p:10,v:"both"},{t:"Solo uno",i:"⚠️",p:5,v:"one"},{t:"Nessuno",i:"❌",p:0,v:"none"},{t:"Non so",i:"➡️",p:2,v:"unknown",skip:1}]},
+{s:"🦺 DPI e Sicurezza",q:"DPI forniti ai lavoratori?",k:"dpi",o:[{t:"Sì, tutti dotati",i:"✅",p:10,v:"all"},{t:"Non necessari",i:"⚪",p:10,v:"notneeded"},{t:"No",i:"❌",p:0,v:"no"},{t:"Non so",i:"➡️",p:2,v:"unknown",skip:1}]},
+{s:"🦺 DPI e Sicurezza",q:"Piano emergenza presente?",k:"pianoEmergenza",o:[{t:"Sì, completo",i:"✅",p:10,v:"yes"},{t:"Parziale",i:"⚠️",p:5,v:"partial"},{t:"No",i:"❌",p:0,v:"no"},{t:"Non so",i:"➡️",p:2,v:"unknown",skip:1}]},
+{s:"🦺 DPI e Sicurezza",q:"Cassetta primo soccorso?",k:"cassettaSoccorso",o:[{t:"Sì",i:"✅",p:10,v:"yes"},{t:"No",i:"❌",p:0,v:"no"},{t:"Non so",i:"➡️",p:2,v:"unknown",skip:1}]},
+{s:"🔥 Antincendio",q:"Estintori verificati?",k:"estintori",o:[{t:"Sì, in regola",i:"✅",p:10,v:"yes"},{t:"No",i:"❌",p:0,v:"no"},{t:"Non so",i:"➡️",p:2,v:"unknown",skip:1}]},
+{s:"🔥 Antincendio",q:"Prove evacuazione?",k:"proveEvacuazione",o:[{t:"Regolarmente",i:"✅",p:10,v:"regular"},{t:"Qualche volta",i:"⚠️",p:5,v:"sometimes"},{t:"Mai",i:"❌",p:0,v:"never"},{t:"Non so",i:"➡️",p:2,v:"unknown",skip:1}]},
+{s:"🔥 Antincendio",q:"Impianto elettrico verificato?",k:"impiantoElettrico",o:[{t:"Sì, verificato",i:"✅",p:10,v:"yes"},{t:"Verifica scaduta",i:"⚠️",p:5,v:"old"},{t:"No",i:"❌",p:0,v:"no"},{t:"Non so",i:"➡️",p:2,v:"unknown",skip:1}]}
+];
+
+var tot=questions.length;
+var cur=0;
+var ans=[];
+var sett="";
+var reportData=null;
+
+function show(id){
+    var screens=document.querySelectorAll(".screen");
+    for(var i=0;i<screens.length;i++){screens[i].classList.remove("active");}
+    document.getElementById(id).classList.add("active");
+}
+
+function startQuiz(x){
+    sett=x;cur=0;ans=[];
+    if(typeof gtag!=="undefined")gtag("event","quiz_start",{event_category:"engagement",event_label:x});
+    if(typeof fbq!=="undefined")fbq("track","StartTrial",{content_name:x});
+    showQ();
+}
+
+function showQ(){
+    show("screenQuestion");
+    var q=questions[cur];
+    document.getElementById("progressFill").style.width=((cur+1)/tot*100)+"%";
+    document.getElementById("progressText").textContent=(cur+1)+" di "+tot;
+    document.getElementById("sectionBadge").textContent=q.s;
+    document.getElementById("questionText").textContent=q.q;
+    var h="";
+    for(var i=0;i<q.o.length;i++){
+        var c=q.o[i].skip?"option-btn option-skip":"option-btn";
+        h+="<button class=\""+c+"\" onclick=\"pick("+i+")\"><span class=\"option-icon\">"+q.o[i].i+"</span><span class=\"option-text\">"+q.o[i].t+"</span></button>";
+    }
+    document.getElementById("optionsList").innerHTML=h;
+    document.getElementById("backLink").style.visibility=cur>0?"visible":"hidden";
+}
+
+function pick(i){
+    var q=questions[cur];
+    ans[cur]={q:q.q,s:q.s,k:q.k,a:q.o[i].t,p:q.o[i].p,v:q.o[i].v,info:q.info||0};
+    var btns=document.querySelectorAll("#optionsList .option-btn");
+    btns[i].classList.add("selected");
+    setTimeout(function(){
+        if(cur<tot-1){cur++;showQ();}
+        else{calcReport();showMini();}
+    },180);
+}
+
+function goBack(){if(cur>0){cur--;showQ();}}
+
+function calcReport(){
+    // Initialize areas
+    var areas={
+        medico:{score:0,max:20,status:"red",issues:[]},
+        formazione:{score:0,max:30,status:"red",issues:[]},
+        documenti:{score:0,max:10,status:"red",issues:[]},
+        nomine:{score:0,max:20,status:"red",issues:[]},
+        dpi:{score:0,max:30,status:"red",issues:[]},
+        antincendio:{score:0,max:30,status:"red",issues:[]}
+    };
+    
+    // Raw answers object
+    var raw={};
+    for(var i=0;i<ans.length;i++){
+        if(ans[i])raw[ans[i].k]=ans[i].v;
+    }
+    
+    // Calculate MEDICO (max 20)
+    if(raw.medicoNominato==="yes"){
+        areas.medico.score+=10;
+    }else if(raw.medicoNominato==="no"){
+        areas.medico.issues.push(sanzioni["Hai nominato il Medico Competente?"]);
+    }
+    if(raw.visiteMediche==="all"){
+        areas.medico.score+=10;
+    }else if(raw.visiteMediche==="some"){
+        areas.medico.score+=5;
+        areas.medico.issues.push(sanzioni["Visite mediche effettuate?"]);
+    }else if(raw.visiteMediche==="none"){
+        areas.medico.issues.push(sanzioni["Visite mediche effettuate?"]);
+    }
+    
+    // Calculate FORMAZIONE (max 30)
+    if(raw.formazioneGenerale==="all"){
+        areas.formazione.score+=10;
+    }else if(raw.formazioneGenerale==="some"){
+        areas.formazione.score+=5;
+        areas.formazione.issues.push(sanzioni["Formazione generale (4h) completata?"]);
+    }else if(raw.formazioneGenerale==="none"){
+        areas.formazione.issues.push(sanzioni["Formazione generale (4h) completata?"]);
+    }
+    
+    if(raw.formazioneSpecifica==="all"){
+        areas.formazione.score+=10;
+    }else if(raw.formazioneSpecifica==="some"){
+        areas.formazione.score+=5;
+        areas.formazione.issues.push(sanzioni["Formazione specifica mansione?"]);
+    }else if(raw.formazioneSpecifica==="none"){
+        areas.formazione.issues.push(sanzioni["Formazione specifica mansione?"]);
+    }
+    
+    if(raw.formazioneAggiornata==="yes"){
+        areas.formazione.score+=10;
+    }else if(raw.formazioneAggiornata==="no"){
+        areas.formazione.issues.push(sanzioni["Aggiornamento (ogni 5 anni)?"]);
+    }
+    
+    // Calculate DOCUMENTI (max 10) - only DVR
+    if(raw.dvr==="updated"){
+        areas.documenti.score+=10;
+    }else if(raw.dvr==="old"){
+        areas.documenti.score+=5;
+        areas.documenti.issues.push(sanzioni["DVR presente e aggiornato?"]);
+    }else if(raw.dvr==="no"){
+        areas.documenti.issues.push(sanzioni["DVR presente e aggiornato?"]);
+    }
+    
+    // Calculate NOMINE (max 20)
+    if(raw.rspp==="external"||raw.rspp==="internal"){
+        areas.nomine.score+=10;
+    }else if(raw.rspp==="no"){
+        areas.nomine.issues.push(sanzioni["RSPP nominato?"]);
+    }
+    
+    if(raw.addettiEmergenze==="both"){
+        areas.nomine.score+=10;
+    }else if(raw.addettiEmergenze==="one"){
+        areas.nomine.score+=5;
+        areas.nomine.issues.push(sanzioni["Addetti Emergenze nominati?"]);
+    }else if(raw.addettiEmergenze==="none"){
+        areas.nomine.issues.push(sanzioni["Addetti Emergenze nominati?"]);
+    }
+    
+    // Calculate DPI (max 30)
+    if(raw.dpi==="all"||raw.dpi==="notneeded"){
+        areas.dpi.score+=10;
+    }else if(raw.dpi==="no"){
+        areas.dpi.issues.push(sanzioni["DPI forniti ai lavoratori?"]);
+    }
+    
+    if(raw.pianoEmergenza==="yes"){
+        areas.dpi.score+=10;
+    }else if(raw.pianoEmergenza==="partial"){
+        areas.dpi.score+=5;
+        areas.dpi.issues.push(sanzioni["Piano emergenza presente?"]);
+    }else if(raw.pianoEmergenza==="no"){
+        areas.dpi.issues.push(sanzioni["Piano emergenza presente?"]);
+    }
+    
+    if(raw.cassettaSoccorso==="yes"){
+        areas.dpi.score+=10;
+    }else if(raw.cassettaSoccorso==="no"){
+        areas.dpi.issues.push(sanzioni["Cassetta primo soccorso?"]);
+    }
+    
+    // Calculate ANTINCENDIO (max 30)
+    if(raw.estintori==="yes"){
+        areas.antincendio.score+=10;
+    }else if(raw.estintori==="no"){
+        areas.antincendio.issues.push(sanzioni["Estintori verificati?"]);
+    }
+    
+    if(raw.proveEvacuazione==="regular"){
+        areas.antincendio.score+=10;
+    }else if(raw.proveEvacuazione==="sometimes"){
+        areas.antincendio.score+=5;
+        areas.antincendio.issues.push(sanzioni["Prove evacuazione?"]);
+    }else if(raw.proveEvacuazione==="never"){
+        areas.antincendio.issues.push(sanzioni["Prove evacuazione?"]);
+    }
+    
+    if(raw.impiantoElettrico==="yes"){
+        areas.antincendio.score+=10;
+    }else if(raw.impiantoElettrico==="old"){
+        areas.antincendio.score+=5;
+        areas.antincendio.issues.push(sanzioni["Impianto elettrico verificato?"]);
+    }else if(raw.impiantoElettrico==="no"){
+        areas.antincendio.issues.push(sanzioni["Impianto elettrico verificato?"]);
+    }
+    
+    // Calculate statuses
+    for(var a in areas){
+        var pct=areas[a].max>0?Math.round(areas[a].score/areas[a].max*100):0;
+        if(pct>=80)areas[a].status="green";
+        else if(pct>=50)areas[a].status="yellow";
+        else areas[a].status="red";
+    }
+    
+    // Total score (normalize to 100)
+    var totalMax=areas.medico.max+areas.formazione.max+areas.documenti.max+areas.nomine.max+areas.dpi.max+areas.antincendio.max;
+    var totalScore=areas.medico.score+areas.formazione.score+areas.documenti.score+areas.nomine.score+areas.dpi.score+areas.antincendio.score;
+    var score=Math.round(totalScore/totalMax*100);
+    
+    // Count issues
+    var allIssues=[];
+    for(var a in areas){
+        allIssues=allIssues.concat(areas[a].issues);
+    }
+    var crit=allIssues.length;
+    var urg=0;
+    for(var a in areas){
+        if(areas[a].status==="red")urg++;
+    }
+    
+    // Status generale
+    var statusGen=score>=80?"green":(score>=50?"yellow":"red");
+    
+    // Store report data
+    reportData={
+        settore:sett,
+        dipendenti:raw.dipendenti||"1-15",
+        score:score,
+        statusGenerale:statusGen,
+        crit:crit,
+        urg:urg,
+        areas:areas,
+        raw:raw,
+        allIssues:allIssues
+    };
+}
+
+function showMini(){
+    show("screenMiniReport");
+    if(typeof gtag!=="undefined")gtag("event","quiz_complete",{event_category:"engagement",value:reportData.score});
+    if(typeof fbq!=="undefined")fbq("track","CompleteRegistration",{value:reportData.score});
+    
+    var el=document.getElementById("scoreValue2");
+    var v=0;
+    var tm=setInterval(function(){
+        v+=reportData.score/20;
+        if(v>=reportData.score){v=reportData.score;clearInterval(tm);}
+        el.textContent=Math.round(v);
+    },40);
+    
+    var c,l,b;
+    if(reportData.score>=80){c="#22c55e";l="Eccellente";b="rgba(34,197,94,.15)";}
+    else if(reportData.score>=60){c="#84cc16";l="Buono";b="rgba(132,204,22,.15)";}
+    else if(reportData.score>=50){c="#eab308";l="Sufficiente";b="rgba(234,179,8,.15)";}
+    else if(reportData.score>=30){c="#f97316";l="Insufficiente";b="rgba(249,115,22,.15)";}
+    else{c="#ef4444";l="Critico";b="rgba(239,68,68,.15)";}
+    
+    document.getElementById("scoreCircle2").style.borderColor=c;
+    var lb=document.getElementById("scoreLabel2");
+    lb.textContent=l;lb.style.background=b;lb.style.color=c;
+    document.getElementById("criticalCount2").textContent=reportData.crit;
+    document.getElementById("urgentCount2").textContent=reportData.urg;
+}
+
+function submitEmail(){
+    var e=document.getElementById("emailInput").value;
+    var p=document.getElementById("privacyCheck").checked;
+    if(!e||e.indexOf("@")<0){alert("Inserisci un indirizzo email valido");return;}
+    if(!p){alert("Accetta l'informativa privacy per continuare");return;}
+    
+    // Tracking
+    if(typeof gtag!=="undefined"){
+        gtag("event","generate_lead",{value:reportData.score});
+        gtag("event","conversion",{send_to:"AW-17912451655/lead"});
+    }
+    if(typeof fbq!=="undefined")fbq("track","Lead",{value:reportData.score});
+    
+    sendToSheet();
+    showFull();
+}
+
+function sendToSheet(){
+    var areas=reportData.areas;
+    var raw=reportData.raw;
+    
+    // Build complete payload matching Google Sheets columns
+    var payload={
+        // Basic info
+        timestamp:new Date().toISOString(),
+        email:document.getElementById("emailInput").value,
+        nome:document.getElementById("nomeInput").value||"",
+        nomeAzienda:document.getElementById("aziendaInput").value||"",
+        telefono:document.getElementById("telefonoInput").value||"",
+        dipendenti:reportData.dipendenti,
+        settore:reportData.settore,
+        
+        // Totals
+        punteggioTotale:reportData.score,
+        statusGenerale:reportData.statusGenerale,
+        numeroCriticita:reportData.crit,
+        
+        // Scores per area
+        scoreMedico:areas.medico.score,
+        scoreFormazione:areas.formazione.score,
+        scoreDocumenti:areas.documenti.score,
+        scoreNomine:areas.nomine.score,
+        scoreDPI:areas.dpi.score,
+        scoreAntincendio:areas.antincendio.score,
+        
+        // Status per area
+        statusMedico:areas.medico.status,
+        statusFormazione:areas.formazione.status,
+        statusDocumenti:areas.documenti.status,
+        statusNomine:areas.nomine.status,
+        statusDPI:areas.dpi.status,
+        statusAntincendio:areas.antincendio.status,
+        
+        // Raw answers
+        medicoNominato:raw.medicoNominato||"",
+        visiteMediche:raw.visiteMediche||"",
+        formazioneGenerale:raw.formazioneGenerale||"",
+        formazioneSpecifica:raw.formazioneSpecifica||"",
+        formazioneAggiornata:raw.formazioneAggiornata||"",
+        dvr:raw.dvr||"",
+        rspp:raw.rspp||"",
+        addettiEmergenze:raw.addettiEmergenze||"",
+        dpi:raw.dpi||"",
+        registroInfortuni:"N/A", // Not in simplified quiz
+        pianoEmergenza:raw.pianoEmergenza||"",
+        estintori:raw.estintori||"",
+        proveEvacuazione:raw.proveEvacuazione||"",
+        impiantoElettrico:raw.impiantoElettrico||"",
+        cassettaSoccorso:raw.cassettaSoccorso||"",
+        
+        // Criticità per area (array of titles)
+        criticitaMedico:areas.medico.issues.map(function(x){return x[0];}).join(", "),
+        criticitaFormazione:areas.formazione.issues.map(function(x){return x[0];}).join(", "),
+        criticitaDocumenti:areas.documenti.issues.map(function(x){return x[0];}).join(", "),
+        criticitaNomine:areas.nomine.issues.map(function(x){return x[0];}).join(", "),
+        criticitaDPI:areas.dpi.issues.map(function(x){return x[0];}).join(", "),
+        criticitaAntincendio:areas.antincendio.issues.map(function(x){return x[0];}).join(", ")
+    };
+    
+    console.log("Sending to Google Sheets:",payload);
+    
+    fetch(SHEET_URL,{
+        method:"POST",
+        mode:"no-cors",
+        headers:{"Content-Type":"text/plain;charset=UTF-8"},
+        body:JSON.stringify(payload)
+    }).then(function(){
+        console.log("✅ Dati inviati a Google Sheets");
+    }).catch(function(err){
+        console.error("❌ Errore invio:",err);
+    });
+}
+
+function showFull(){
+    show("screenFullReport");
+    var score=reportData.score;
+    var areas=reportData.areas;
+    
+    var c,l,emoji;
+    if(score>=80){c="#22c55e";l="CONFORME";emoji="🟢";}
+    else if(score>=60){c="#84cc16";l="BUONO";emoji="🟢";}
+    else if(score>=50){c="#eab308";l="DA MIGLIORARE";emoji="🟡";}
+    else if(score>=30){c="#f97316";l="CRITICITÀ GRAVI";emoji="🟠";}
+    else{c="#ef4444";l="NON CONFORME";emoji="🔴";}
+
+    var areaNames={
+        medico:"👨‍⚕️ Sorveglianza Sanitaria",
+        formazione:"📚 Formazione",
+        documenti:"📄 DVR",
+        nomine:"👥 Nomine",
+        dpi:"🦺 DPI e Sicurezza",
+        antincendio:"🔥 Antincendio"
+    };
+
+    var h="<div style=\"text-align:center;padding:24px 16px;margin-bottom:20px;background:linear-gradient(135deg,"+c+"15,"+c+"05);border-radius:16px;border:2px solid "+c+"\">";
+    h+="<div style=\"font-size:13px;color:#64748b;margin-bottom:8px;font-weight:600\">REPORT COMPLIANCE D.Lgs 81/08</div>";
+    h+="<div style=\"font-size:60px;font-weight:900;color:"+c+"\">"+score+"<span style=\"font-size:24px\">/100</span></div>";
+    h+="<div style=\"font-size:20px;font-weight:700;color:"+c+";margin-top:8px\">"+emoji+" "+l+"</div>";
+    h+="</div>";
+
+    h+="<div style=\"font-size:17px;font-weight:700;margin-bottom:14px;color:#1e293b\">📊 Aree Analizzate</div>";
+
+    for(var area in areas){
+        var a=areas[area];
+        var ac=a.status==="green"?"#22c55e":(a.status==="yellow"?"#eab308":"#ef4444");
+        var st=a.status==="green"?"CONFORME":(a.status==="yellow"?"DA SISTEMARE":"CRITICO");
+
+        h+="<div style=\"background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;border:2px solid #e2e8f0;border-left:5px solid "+ac+"\">";
+        h+="<div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:10px\">";
+        h+="<span style=\"font-weight:700;font-size:15px;color:#1e293b\">"+areaNames[area]+"</span>";
+        h+="<span style=\"background:"+ac+";color:#fff;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:700\">"+a.score+"</span></div>";
+        h+="<div style=\"font-size:11px;font-weight:700;color:"+ac+";margin-bottom:12px;text-transform:uppercase\">"+st+"</div>";
+
+        for(var j=0;j<a.issues.length;j++){
+            var sz=a.issues[j];
+            h+="<div style=\"background:"+(a.status==="red"?"#fef2f2":"#fffbeb")+";border-radius:10px;padding:12px;margin-bottom:8px;border-left:4px solid "+(a.status==="red"?"#ef4444":"#f59e0b")+"\">";
+            h+="<div style=\"font-size:14px;font-weight:700;color:"+(a.status==="red"?"#dc2626":"#d97706")+"\">"+sz[0]+"</div>";
+            if(sz[1]){h+="<div style=\"font-size:12px;color:#64748b;margin-top:4px\">"+sz[1]+"</div>";}
+            if(sz[2]){h+="<div style=\"font-size:12px;color:#dc2626;margin-top:6px;font-weight:600\">💰 "+sz[2]+"</div>";}
+            h+="</div>";
+        }
+        
+        if(a.issues.length===0){
+            h+="<div style=\"font-size:13px;color:#22c55e;padding:6px 0\">✅ Nessuna criticità rilevata</div>";
+        }
+        h+="</div>";
+    }
+
+    h+="<div style=\"background:linear-gradient(135deg,#0F4C81,#0a3659);border-radius:16px;padding:24px;color:#fff;margin:20px 0\">";
+    h+="<div style=\"font-size:18px;font-weight:700;margin-bottom:16px;text-align:center\">COME POSSIAMO AIUTARTI</div>";
+    h+="<p style=\"font-size:14px;line-height:1.6;margin-bottom:16px;opacity:.95\">Questo report ti ha fornito una fotografia chiara dello stato di conformità della tua azienda rispetto al D.Lgs 81/08.</p>";
+    h+="<p style=\"font-size:14px;line-height:1.6;margin-bottom:16px;opacity:.95\">Quotidianamente affianchiamo aziende come la tua per implementare la sicurezza sul lavoro in modo pragmatico ed efficace.</p>";
+    h+="<div style=\"font-size:14px;font-weight:600;margin-bottom:10px\">Cosa possiamo fare per te:</div>";
+    h+="<div style=\"font-size:13px;line-height:1.8;opacity:.95\">✓ Analizzare nel dettaglio le criticità<br>✓ Definirti un piano d'azione con tempi e costi<br>✓ Affiancarti nell'implementazione<br>✓ Formare il tuo team<br>✓ Garantirti la conformità nel tempo</div>";
+    h+="<div style=\"text-align:center;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.2)\">";
+    h+="<div style=\"font-size:14px;margin-bottom:12px;opacity:.9\">Contattaci per una call gratuita di 15 minuti</div>";
+    h+="<a href=\"tel:+390250047124\" style=\"display:inline-block;background:#fff;color:#0F4C81;padding:12px 24px;border-radius:10px;font-weight:700;text-decoration:none;font-size:16px\">📞 02 50047124</a>";
+    h+="<div style=\"margin-top:10px\"><a href=\"mailto:info@deliverycare.it\" style=\"color:#fff;font-size:13px\">📧 info@deliverycare.it</a></div>";
+    h+="</div></div>";
+
+    h+="<div style=\"text-align:center;padding:16px;font-size:11px;color:#64748b;border-top:2px solid #e2e8f0;margin-top:16px\">";
+    h+="<div style=\"font-weight:700;color:#1e293b\">Delivery Care Srl - Società Benefit</div>";
+    h+="<div style=\"margin-top:4px\">P.IVA: 11263630961 | Segrate (MI)</div>";
+    h+="<div style=\"margin-top:4px;color:#0F4C81\">Specialisti in Sicurezza sul Lavoro</div>";
+    h+="</div>";
+
+    document.getElementById("reportContent").innerHTML=h;
+}
+
+function restart(){
+    cur=0;ans=[];reportData=null;
+    document.getElementById("emailInput").value="";
+    document.getElementById("nomeInput").value="";
+    document.getElementById("aziendaInput").value="";
+    document.getElementById("telefonoInput").value="";
+    document.getElementById("privacyCheck").checked=false;
+    show("screenLanding");
+}
+
+function openPrivacy(e){
+    e.preventDefault();
+    document.getElementById("privacyModal").classList.add("active");
+}
+
+function closePrivacy(){
+    document.getElementById("privacyModal").classList.remove("active");
+}
+</script>
 </body>
 </html>
